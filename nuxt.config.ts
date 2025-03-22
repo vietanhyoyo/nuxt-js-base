@@ -1,11 +1,25 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ["@element-plus/nuxt"],
+  modules: ['@element-plus/nuxt'],
+  elementPlus: {
+    importStyle: 'scss',
+  },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          additionalData: `@use "@/assets/scss/element/index.scss" as element;`,
+        },
+      },
+    },
+  },
+  css: ['~/assets/scss/index.scss'],
   components: [
     {
-      path: "~/components",
+      path: '~/components',
       pathPrefix: false,
     },
   ],
