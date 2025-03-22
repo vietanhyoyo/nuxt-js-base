@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="text-(--ui-text-highlighted) block w-auto h-6"
+    class="logo-svg"
     width="400"
     height="50"
     viewBox="0 0 800 200"
@@ -29,3 +29,12 @@
     ></path>
   </svg>
 </template>
+
+<style lang="scss" scoped>
+.logo-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  color: currentColor; 
+}
+</style>
