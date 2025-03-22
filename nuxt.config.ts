@@ -4,7 +4,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@element-plus/nuxt'],
   elementPlus: {
+    icon: 'ElIcon',
     importStyle: 'scss',
+    themes: ['dark'],
   },
   vite: {
     css: {

@@ -1,3 +1,120 @@
 <template>
-    <h1>Login</h1>
+  <div class="login-container">
+    <vc-form
+      :model="loginForm"
+      :rules="rules"
+      form-ref="loginFormRef"
+      @submit="handleLogin"
+    >
+      <div class="title"><logo-horizontal /></div>
+
+      <vc-form-item prop="username">
+        <vc-input
+          v-model="loginForm.username"
+          placeholder="Username"
+          :prefix-icon="User"
+          size="large"
+          clearable
+        />
+      </vc-form-item>
+
+      <vc-form-item prop="password">
+        <vc-input
+          v-model="loginForm.password"
+          type="password"
+          placeholder="Password"
+          :prefix-icon="Lock"
+          show-password
+          size="large"
+          clearable
+        />
+      </vc-form-item>
+
+      <vc-form-item>
+        <vc-button
+          type="primary"
+          @click="handleLogin"
+          :loading="loading"
+          size="large"
+          class="login-button"
+        >
+          Login
+        </vc-button>
+      </vc-form-item>
+    </vc-form>
+  </div>
 </template>
+
+<script setup>
+import { User, Lock } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
+import { LogoHorizontal } from '#components'
+
+// Form reference
+const loginFormRef = ref(null)
+
+// Form data
+const loginForm = reactive({
+  username: '',
+  password: '',
+})
+
+// Form rules
+const rules = reactive({
+  username: [
+    { required: true, message: 'Please enter username', trigger: 'blur' },
+  ],
+  password: [
+    { required: true, message: 'Please enter password', trigger: 'blur' },
+    {
+      min: 6,
+      message: 'Password must be at least 6 characters',
+      trigger: 'blur',
+    },
+  ],
+})
+
+// Loading state
+const loading = ref(false)
+
+// Login handler
+const handleLogin = () => {
+  loginFormRef.value.validate((valid) => {
+    if (valid) {
+      loading.value = true
+      setTimeout(() => {
+        loading.value = false
+        ElMessage.success('Login successful!')
+      }, 2000)
+    }
+  })
+}
+</script>
+
+<style scoped>
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 300px;
+  padding: 20px;
+}
+
+.title {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.login-button {
+  width: 100%;
+}
+</style>
