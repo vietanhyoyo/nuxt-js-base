@@ -1,12 +1,17 @@
 <template>
-  <div class="float-button" @click="toggleColorMode">
+  <vc-button
+    class="float-button"
+    circle
+    type="primary"
+    @click="toggleColorMode"
+  >
     <el-icon v-if="colorMode.value === 'dark'">
       <Sunny />
     </el-icon>
     <el-icon v-else>
       <Moon />
     </el-icon>
-  </div>
+  </vc-button>
 </template>
 
 <script setup>
@@ -23,19 +28,6 @@ const toggleColorMode = () => {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: var(--el-color-primary, #409eff);
-  color: #fff;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
   z-index: 1000;
-  transition: filter 0.3s ease;
-}
-.float-button:hover {
-  filter: brightness(0.9);
 }
 </style>
