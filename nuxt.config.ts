@@ -1,8 +1,7 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@element-plus/nuxt'],
+  modules: ['@nuxtjs/color-mode', '@element-plus/nuxt'],
   elementPlus: {
     icon: 'ElIcon',
     importStyle: 'scss',
@@ -19,6 +18,11 @@ export default defineNuxtConfig({
     },
   },
   css: ['~/assets/scss/index.scss'],
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    classSuffix: '',
+  },
   components: [
     {
       path: '~/components',

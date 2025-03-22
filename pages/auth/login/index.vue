@@ -42,6 +42,7 @@
         </vc-button>
       </vc-form-item>
     </vc-form>
+    <mode-button />
   </div>
 </template>
 
@@ -49,17 +50,15 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { LogoHorizontal } from '#components'
+import { ModeButton } from '#components'
 
-// Form reference
 const loginFormRef = ref(null)
 
-// Form data
 const loginForm = reactive({
   username: '',
   password: '',
 })
 
-// Form rules
 const rules = reactive({
   username: [
     { required: true, message: 'Please enter username', trigger: 'blur' },
@@ -74,10 +73,8 @@ const rules = reactive({
   ],
 })
 
-// Loading state
 const loading = ref(false)
 
-// Login handler
 const handleLogin = () => {
   loginFormRef.value.validate((valid) => {
     if (valid) {
