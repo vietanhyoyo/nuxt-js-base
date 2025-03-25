@@ -92,7 +92,7 @@ const iconComponents = {
 // Dữ liệu menu dưới dạng JSON
 const menuItems = ref([
   {
-    index: '/admin/over',
+    index: '/admin/dashboard',
     title: 'Dashboard',
     icon: 'PieChart',
   },
