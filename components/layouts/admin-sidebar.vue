@@ -137,11 +137,9 @@ const menuItems = ref([
 </script>
 
 <style lang="scss" scoped>
-
 .logo {
   height: 34px;
-  padding: 16px 0px;
-  margin-bottom: 16px;
+  padding: 32px 0px;
   text-align: center;
   transition: all 0.3s ease;
   display: flex;

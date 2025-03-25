@@ -8,14 +8,7 @@
 
     <el-container>
       <el-header class="admin-header">
-        <div class="header-left">
-          <el-button
-            @click="toggleMenu"
-            :icon="isCollapsed ? Expand : Fold"
-            text
-          />
-        </div>
-        <div class="header-right"><mode-switch /></div>
+        <admin-header :is-collapsed="isCollapsed" @toggle="toggleMenu" />
       </el-header>
       <el-main class="admin-content"><slot /></el-main>
     </el-container>
@@ -25,20 +18,17 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { Fold, Expand } from '@element-plus/icons-vue'
-import { ModeSwitch } from '#components'
-import { AdminSidebar } from '#components' 
+import { AdminSidebar } from '#components'
+import { AdminHeader } from '#components'
 
 const route = useRoute()
 const activeMenu = computed(() => route.path)
 
-// Thêm toggle menu state
 const isCollapsed = ref(false)
 const toggleMenu = () => {
   isCollapsed.value = !isCollapsed.value
 }
 
-// Các submenu mặc định mở
 const defaultOpeneds = ref(['3', '4'])
 </script>
 
@@ -54,16 +44,6 @@ const defaultOpeneds = ref(['3', '4'])
   height: 40px;
   padding: 0 20px;
   border-bottom: 1px solid var(--el-border-color);
-}
-
-.header-left {
-  margin-left: -16px;
-}
-
-.page-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--el-text-color-primary);
 }
 
 .admin-content {
