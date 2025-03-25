@@ -37,18 +37,19 @@
           </template>
           <template v-for="item in menu.children" :key="item.index">
             <!-- Nếu có children, render như el-sub-menu -->
-            <el-sub-menu v-if="item.children" :index="item.index">
+            <el-sub-menu v-if="item.children" :index="item.index" :class="!isCollapsed && 'admin-sub-menu'">
               <template #title>{{ item.title }}</template>
               <el-menu-item
                 v-for="subItem in item.children"
                 :key="subItem.index"
                 :index="subItem.index"
+                :class="!isCollapsed && 'admin-sub-menu-2'"
               >
                 {{ subItem.title }}
               </el-menu-item>
             </el-sub-menu>
             <!-- Nếu không có children, render như el-menu-item -->
-            <el-menu-item v-else :index="item.index">
+            <el-menu-item v-else :index="item.index" :class="!isCollapsed && 'admin-sub-menu'">
               {{ item.title }}
             </el-menu-item>
           </template>
@@ -179,5 +180,35 @@ const menuItems = ref([
 
 ::deep(.el-sub-menu__title) {
   white-space: nowrap;
+}
+
+.admin-sub-menu {
+  position: relative;
+}
+
+.admin-sub-menu::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 26px;
+  transform: translateY(-50%);
+  height: 100%;
+  width: 1px;
+  background-color: rgba(143, 143, 143, 0.447);
+}
+
+.admin-sub-menu-2 {
+  position: relative;
+}
+
+.admin-sub-menu-2::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 46px;
+  transform: translateY(-50%);
+  height: 100%;
+  width: 1px;
+  background-color: rgba(143, 143, 143, 0.447);
 }
 </style>
