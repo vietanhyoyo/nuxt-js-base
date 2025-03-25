@@ -1,7 +1,6 @@
 <template>
   <el-container class="admin-layout">
-    <!-- Sidebar -->
-    <el-aside :width="isCollapsed ? '64px' : '200px'" class="admin-sidebar">
+    <el-aside :width="isCollapsed ? '64px' : '220px'" class="admin-sidebar">
       <el-scrollbar>
         <div class="logo">
           <logo-horizontal v-if="!isCollapsed" /> <logo-icon v-else />
@@ -17,7 +16,6 @@
           text-color="var(--el-text-color-primary)"
           active-text-color="var(--el-color-primary)"
         >
-          <!-- Render Dashboard như el-menu-item -->
           <el-menu-item :index="menuItems[0].index">
             <el-icon>
               <component :is="iconComponents[menuItems[0].icon]" />
@@ -25,7 +23,6 @@
             <span v-show="!isCollapsed">{{ menuItems[0].title }}</span>
           </el-menu-item>
 
-          <!-- Render các submenu còn lại -->
           <el-sub-menu
             v-for="menu in menuItems.slice(1)"
             :key="menu.index"
@@ -37,19 +34,26 @@
               </el-icon>
               <span v-show="!isCollapsed">{{ menu.title }}</span>
             </template>
-            <el-menu-item
-              v-for="item in menu.children"
-              :key="item.index"
-              :index="item.index"
-            >
-              {{ item.title }}
-            </el-menu-item>
+            <template v-for="item in menu.children" :key="item.index">
+              <el-sub-menu v-if="item.children" :index="item.index">
+                <template #title>{{ item.title }}</template>
+                <el-menu-item
+                  v-for="subItem in item.children"
+                  :key="subItem.index"
+                  :index="subItem.index"
+                >
+                  {{ subItem.title }}
+                </el-menu-item>
+              </el-sub-menu>
+              <el-menu-item v-else :index="item.index">
+                {{ item.title }}
+              </el-menu-item>
+            </template>
           </el-sub-menu>
         </el-menu>
       </el-scrollbar>
     </el-aside>
 
-    <!-- Main Content -->
     <el-container>
       <el-header class="admin-header">
         <div class="header-left">
@@ -81,7 +85,6 @@ import { LogoHorizontal } from '#components'
 import { LogoIcon } from '#components'
 import { ModeSwitch } from '#components'
 
-// Ánh xạ giữa tên icon (chuỗi) và component icon
 const iconComponents = {
   PieChart: PieChart,
   User: User,
@@ -89,13 +92,11 @@ const iconComponents = {
   Setting: Setting,
 }
 
-// Dữ liệu menu dưới dạng JSON
 const menuItems = ref([
   {
-    index: '/admin/over', // Thay index thành đường dẫn trực tiếp
+    index: '/admin/over',
     title: 'Dashboard',
     icon: 'PieChart',
-    // Không có children để không phải là submenu
   },
   {
     index: '2',
@@ -124,19 +125,24 @@ const menuItems = ref([
     icon: 'Setting',
     children: [
       { index: '/admin/not', title: 'User Management' },
-      { index: '/admin/not', title: 'Roles & Permissions' },
+      {
+        index: '/admin/roles-permissions',
+        title: 'Roles & Permissions',
+        children: [
+          { index: '/admin/roles', title: 'Role' },
+          { index: '/admin/permissions', title: 'Permission' },
+        ],
+      },
       { index: '/admin/not', title: 'System Configuration' },
     ],
   },
 ])
 
-// Các submenu mặc định mở (loại bỏ '1' vì Dashboard không còn là submenu)
-const defaultOpeneds = ref(['3'])
+const defaultOpeneds = ref(['3', '4'])
 
 const route = useRoute()
 const activeMenu = computed(() => route.path)
 
-// Thêm toggle menu state
 const isCollapsed = ref(false)
 const toggleMenu = () => {
   isCollapsed.value = !isCollapsed.value
