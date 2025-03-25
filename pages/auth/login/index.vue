@@ -3,8 +3,8 @@
     <vc-form
       :model="loginForm"
       :rules="rules"
-      form-ref="loginFormRef"
-      @submit="handleLogin"
+      ref="loginFormRef"
+      @submit.prevent="handleLogin"
     >
       <div class="title"><logo-horizontal /></div>
 
@@ -47,12 +47,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { LogoHorizontal } from '#components'
-import { ModeButton } from '#components'
+import { navigateTo } from 'nuxt/app'
 
-const loginFormRef = ref(null)
+const loginFormRef = ref(null) 
 
 const loginForm = reactive({
   username: '',
@@ -76,13 +76,22 @@ const rules = reactive({
 const loading = ref(false)
 
 const handleLogin = () => {
+  if (!loginFormRef.value) {
+    console.error('Form reference is not ready')
+    return
+  }
+
   loginFormRef.value.validate((valid) => {
     if (valid) {
       loading.value = true
       setTimeout(() => {
         loading.value = false
         ElMessage.success('Login successful!')
+        navigateTo('/admin/dashboard')
       }, 2000)
+    } else {
+      ElMessage.warning('Login failed!')
+      return false
     }
   })
 }

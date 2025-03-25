@@ -9,7 +9,7 @@
         <el-menu
           :collapse="isCollapsed"
           :collapse-transition="false"
-          :default-openeds="['1', '3']"
+          :default-openeds="defaultOpeneds"
           :default-active="activeMenu"
           router
           class="el-menu-vertical custom-menu"
@@ -17,62 +17,33 @@
           text-color="var(--el-text-color-primary)"
           active-text-color="var(--el-color-primary)"
         >
-          <el-sub-menu index="1">
-            <template #title
-              ><el-icon><Message /></el-icon
-              ><span v-show="!isCollapsed">Navigator One</span></template
-            >
-            <el-menu-item-group title="Group 1">
-              <el-menu-item index="/admin/option1">Option 1</el-menu-item>
-              <el-menu-item index="/admin/option2">Option 2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group 2">
-              <el-menu-item index="/admin/option3">Option 3</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="1-4">
-              <template #title>Option 4</template>
-              <el-menu-item index="/admin/option4-1">Option 4-1</el-menu-item>
-            </el-sub-menu>
-          </el-sub-menu>
+          <!-- Render Dashboard như el-menu-item -->
+          <el-menu-item :index="menuItems[0].index">
+            <el-icon>
+              <component :is="iconComponents[menuItems[0].icon]" />
+            </el-icon>
+            <span v-show="!isCollapsed">{{ menuItems[0].title }}</span>
+          </el-menu-item>
 
-          <el-sub-menu index="2">
-            <template #title
-              ><el-icon><Menu /></el-icon
-              ><span v-show="!isCollapsed">Navigator Two</span></template
+          <!-- Render các submenu còn lại -->
+          <el-sub-menu
+            v-for="menu in menuItems.slice(1)"
+            :key="menu.index"
+            :index="menu.index"
+          >
+            <template #title>
+              <el-icon>
+                <component :is="iconComponents[menu.icon]" />
+              </el-icon>
+              <span v-show="!isCollapsed">{{ menu.title }}</span>
+            </template>
+            <el-menu-item
+              v-for="item in menu.children"
+              :key="item.index"
+              :index="item.index"
             >
-            <el-menu-item-group title="Group 1">
-              <el-menu-item index="/admin/two-option1">Option 1</el-menu-item>
-              <el-menu-item index="/admin/two-option2">Option 2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group 2">
-              <el-menu-item index="/admin/two-option3">Option 3</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="2-4">
-              <template #title>Option 4</template>
-              <el-menu-item index="/admin/two-option4-1"
-                >Option 4-1</el-menu-item
-              >
-            </el-sub-menu>
-          </el-sub-menu>
-
-          <el-sub-menu index="3">
-            <template #title
-              ><el-icon><Setting /></el-icon
-              ><span v-show="!isCollapsed">Navigator Three</span></template
-            >
-            <el-menu-item-group title="Group 1">
-              <el-menu-item index="/admin/three-option1">Option 1</el-menu-item>
-              <el-menu-item index="/admin/three-option2">Option 2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group 2">
-              <el-menu-item index="/admin/three-option3">Option 3</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="3-4">
-              <template #title>Option 4</template>
-              <el-menu-item index="/admin/three-option4-1"
-                >Option 4-1</el-menu-item
-              >
-            </el-sub-menu>
+              {{ item.title }}
+            </el-menu-item>
           </el-sub-menu>
         </el-menu>
       </el-scrollbar>
@@ -98,10 +69,69 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { Menu, Message, Setting, Fold, Expand } from '@element-plus/icons-vue'
+import {
+  Setting,
+  User,
+  Fold,
+  Expand,
+  PieChart,
+  DataAnalysis,
+} from '@element-plus/icons-vue'
 import { LogoHorizontal } from '#components'
 import { LogoIcon } from '#components'
 import { ModeSwitch } from '#components'
+
+// Ánh xạ giữa tên icon (chuỗi) và component icon
+const iconComponents = {
+  PieChart: PieChart,
+  User: User,
+  DataAnalysis: DataAnalysis,
+  Setting: Setting,
+}
+
+// Dữ liệu menu dưới dạng JSON
+const menuItems = ref([
+  {
+    index: '/admin/over', // Thay index thành đường dẫn trực tiếp
+    title: 'Dashboard',
+    icon: 'PieChart',
+    // Không có children để không phải là submenu
+  },
+  {
+    index: '2',
+    title: 'Employee',
+    icon: 'User',
+    children: [
+      { index: '/admin/not', title: 'Employee List' },
+      { index: '/admin/not', title: 'Add New Employee' },
+      { index: '/admin/not', title: 'Departments' },
+      { index: '/admin/not', title: 'Job Titles' },
+    ],
+  },
+  {
+    index: '3',
+    title: 'Reports',
+    icon: 'DataAnalysis',
+    children: [
+      { index: '/admin/not', title: 'HR Reports' },
+      { index: '/admin/not', title: 'Payroll Reports' },
+      { index: '/admin/not', title: 'Attendance Reports' },
+    ],
+  },
+  {
+    index: '4',
+    title: 'System Settings',
+    icon: 'Setting',
+    children: [
+      { index: '/admin/not', title: 'User Management' },
+      { index: '/admin/not', title: 'Roles & Permissions' },
+      { index: '/admin/not', title: 'System Configuration' },
+    ],
+  },
+])
+
+// Các submenu mặc định mở (loại bỏ '1' vì Dashboard không còn là submenu)
+const defaultOpeneds = ref(['3'])
 
 const route = useRoute()
 const activeMenu = computed(() => route.path)
@@ -117,6 +147,7 @@ const toggleMenu = () => {
 .logo {
   height: 34px;
   padding: 16px 0px;
+  margin-bottom: 16px;
   text-align: center;
   transition: all 0.3s ease;
   display: flex;
@@ -161,7 +192,6 @@ const toggleMenu = () => {
 
 .admin-content {
   padding: 20px;
-  background-color: var(--el-bg-color);
   min-height: calc(100vh - 60px);
 }
 

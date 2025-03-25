@@ -3,7 +3,7 @@
   <el-form
     :model="model"
     :rules="rules"
-    :ref="formRef"
+    ref="internalFormRef"
     class="vc-form"
     @submit.prevent="onSubmit"
   >
@@ -12,6 +12,8 @@
 </template>
 
 <script setup>
+import { ref, defineExpose } from 'vue'
+
 defineProps({
   model: {
     type: Object,
@@ -21,13 +23,19 @@ defineProps({
     type: Object,
     default: () => ({}),
   },
-  formRef: {
-    type: String,
-    default: null,
-  },
 })
 
 const emit = defineEmits(['submit'])
+
+const internalFormRef = ref(null)
+
+defineExpose({
+  validate: (callback) => {
+    if (internalFormRef.value) {
+      internalFormRef.value.validate(callback)
+    }
+  },
+})
 
 const onSubmit = () => {
   emit('submit')
