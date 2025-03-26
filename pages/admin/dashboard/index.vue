@@ -1,86 +1,62 @@
 <!-- pages/dashboard.vue -->
 <template>
   <div class="dashboard-container">
-    <div class="title"><h1 class="h1">Dashboard Quản Lý Nhân Sự</h1></div>
+    <h1 class="h1 title">Dashboard Quản Lý Nhân Sự</h1>
 
     <vc-row :gutter="20">
-      <!-- Card Tổng nhân viên -->
-      <vc-col :span="6">
-        <vc-card class="stat-card">
-          <template #header>
-            <div class="card-header">
-              <span>Tổng nhân viên</span>
-              <el-icon><User /></el-icon>
-            </div>
-          </template>
-          <div class="stat-number">150</div>
-          <div class="stat-footer">+2 nhân viên mới tháng này</div>
-        </vc-card>
-      </vc-col>
-
-      <!-- Card Tiền lương -->
-      <vc-col :span="6">
-        <vc-card class="stat-card">
-          <template #header>
-            <div class="card-header">
-              <span>Tổng tiền lương</span>
-              <el-icon><Money /></el-icon>
-            </div>
-          </template>
-          <div class="stat-number">500M VNĐ</div>
-          <div class="stat-footer">Tháng 3/2025</div>
-        </vc-card>
-      </vc-col>
-
-      <!-- Card Chức vụ -->
-      <vc-col :span="6">
-        <vc-card class="stat-card">
-          <template #header>
-            <div class="card-header">
-              <span>Tổng chức vụ</span>
-              <el-icon><Postcard /></el-icon>
-            </div>
-          </template>
-          <div class="stat-number">12</div>
-          <div class="stat-footer">3 quản lý, 9 nhân viên</div>
-        </vc-card>
-      </vc-col>
-
-      <!-- Card Nhân viên mới -->
-      <vc-col :span="6">
-        <vc-card class="stat-card">
-          <template #header>
-            <div class="card-header">
-              <span>Nhân viên mới</span>
-              <el-icon><UserFilled /></el-icon>
-            </div>
-          </template>
-          <div class="stat-number">5</div>
-          <div class="stat-footer">Trong 30 ngày qua</div>
-        </vc-card>
+      <vc-col v-for="(stat, index) in stats" :key="index" :span="6">
+        <StatCard v-bind="stat" />
       </vc-col>
     </vc-row>
 
-    <!-- Bảng dữ liệu -->
     <vc-card class="table-card">
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="Ngày vào" width="180" />
-        <el-table-column prop="name" label="Tên" width="180" />
-        <el-table-column prop="position" label="Chức vụ" />
-        <el-table-column prop="status" label="Trạng thái" />
-      </el-table>
+      <vc-table :data="tableData" style="width: 100%">
+        <vc-table-column prop="date" label="Ngày vào" width="180" />
+        <vc-table-column prop="name" label="Tên" width="180" />
+        <vc-table-column prop="position" label="Chức vụ" />
+        <vc-table-column prop="status" label="Trạng thái" />
+      </vc-table>
     </vc-card>
   </div>
 </template>
 
 <script setup>
 import { User, Money, Postcard, UserFilled } from '@element-plus/icons-vue'
+import StatCard from './stat-card.vue'
 
-definePageMeta({
-  layout: 'admin-layout',
-})
+definePageMeta({ layout: 'admin-layout' })
 
-// Dữ liệu mẫu cho bảng
+const stats = [
+  {
+    title: 'Tổng nhân viên',
+    value: 150,
+    footer: '+2 nhân viên mới',
+    icon: User,
+    color: '#3498db',
+  },
+  {
+    title: 'Tổng tiền lương',
+    value: '500M VNĐ',
+    footer: 'Tháng 3/2025',
+    icon: Money,
+    color: '#e67e22',
+  },
+  {
+    title: 'Tổng chức vụ',
+    value: 12,
+    footer: '3 quản lý, 9 nhân viên',
+    icon: Postcard,
+    color: '#2ecc71',
+  },
+  {
+    title: 'Nhân viên mới',
+    value: 5,
+    footer: 'Trong 30 ngày qua',
+    icon: UserFilled,
+    color: '#e74c3c',
+  },
+]
+
 const tableData = [
   {
     date: '2025-03-25',
@@ -104,32 +80,10 @@ const tableData = [
 </script>
 
 <style scoped>
-.title {
-  margin-bottom: 20px;
-}
 .dashboard-container {
   padding: 20px;
 }
-
-.stat-card {
+.title {
   margin-bottom: 20px;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.stat-number {
-  font-size: 24px;
-  font-weight: bold;
-  color: #303133;
-  margin: 10px 0;
-}
-
-.stat-footer {
-  color: #909399;
-  font-size: 12px;
 }
 </style>
