@@ -39,5 +39,5 @@ const onClick = (event) => {
 </script>
 
 <style lang="scss" scoped>
-@use "@/assets/scss/components/vc-button.scss" as *;
+@use "@/assets/scss/ui/vc-button.scss" as *;
 </style>

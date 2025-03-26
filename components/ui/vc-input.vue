@@ -57,5 +57,5 @@ const inputValue = computed({
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/scss/components/vc-input.scss' as *;
+@use '@/assets/scss/ui/vc-input.scss' as *;
 </style>

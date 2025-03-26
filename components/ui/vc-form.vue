@@ -43,5 +43,5 @@ const onSubmit = () => {
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/scss/components/vc-form.scss' as *;
+@use '@/assets/scss/ui/vc-form.scss' as *;
 </style>

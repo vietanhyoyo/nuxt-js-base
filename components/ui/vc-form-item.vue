@@ -19,5 +19,5 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/scss/components/vc-form-item.scss' as *;
+@use '@/assets/scss/ui/vc-form-item.scss' as *;
 </style>
