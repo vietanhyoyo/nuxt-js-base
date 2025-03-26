@@ -1,3 +1,5 @@
+@use './element/menu.scss';
+
 html,
 body,
 #app {
@@ -17,18 +19,4 @@ a {
 
 body {
   font-family: 'Roboto', sans-serif;
-}
-
-.el-sub-menu__title:hover {
-  background-color: #f5f5f5 !important;
-  color: inherit;
-}
-
-.dark .el-sub-menu__title:hover {
-  background-color: #333 !important;
-  color: inherit;
-}
-
-.el-menu {
-  background-color: #ffffff00 !important;
 }

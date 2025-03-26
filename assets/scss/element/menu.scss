@@ -1,0 +1,21 @@
+.el-sub-menu__title:hover {
+  background-color: #f5f5f5 !important;
+  color: inherit;
+}
+
+.dark .el-sub-menu__title:hover {
+  background-color: #333 !important;
+  color: inherit;
+}
+
+.el-menu-item:hover {
+  background-color: #f5f5f5 !important;
+}
+
+.dark .el-menu-item:hover {
+  background-color: #333 !important;
+}
+
+.el-menu {
+  background-color: #ffffff00 !important;
+}
