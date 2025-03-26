@@ -1,6 +1,6 @@
-<!-- components/VcForm.vue -->
 <template>
   <el-form
+    v-bind="$attrs"
     :model="model"
     :rules="rules"
     ref="internalFormRef"
@@ -13,6 +13,10 @@
 
 <script setup>
 import { ref, defineExpose } from 'vue'
+
+defineOptions({
+  inheritAttrs: false, // Cho phép truyền tất cả props của ElForm mà không cần định nghĩa lại
+})
 
 defineProps({
   model: {

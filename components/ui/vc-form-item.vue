@@ -1,19 +1,18 @@
-<!-- components/VcFormItem.vue -->
 <template>
-  <el-form-item :prop="prop" :class="['vc-form-item', itemClass]">
+  <el-form-item v-bind="$attrs" :class="['vc-form-item', itemClass]">
     <slot />
   </el-form-item>
 </template>
 
 <script setup>
+defineOptions({
+  inheritAttrs: false,
+})
+
 defineProps({
-  prop: {
-    type: String,
-    default: null, 
-  },
   itemClass: {
-    type: [String, Boolean],
-    default: false,
+    type: String,
+    default: '',
   },
 })
 </script>

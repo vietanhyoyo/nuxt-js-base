@@ -5,7 +5,7 @@
 
     <vc-row :gutter="20">
       <!-- Card Tổng nhân viên -->
-      <el-col :span="6">
+      <vc-col :span="6">
         <vc-card class="stat-card">
           <template #header>
             <div class="card-header">
@@ -16,10 +16,10 @@
           <div class="stat-number">150</div>
           <div class="stat-footer">+2 nhân viên mới tháng này</div>
         </vc-card>
-      </el-col>
+      </vc-col>
 
       <!-- Card Tiền lương -->
-      <el-col :span="6">
+      <vc-col :span="6">
         <vc-card class="stat-card">
           <template #header>
             <div class="card-header">
@@ -30,10 +30,10 @@
           <div class="stat-number">500M VNĐ</div>
           <div class="stat-footer">Tháng 3/2025</div>
         </vc-card>
-      </el-col>
+      </vc-col>
 
       <!-- Card Chức vụ -->
-      <el-col :span="6">
+      <vc-col :span="6">
         <vc-card class="stat-card">
           <template #header>
             <div class="card-header">
@@ -44,10 +44,10 @@
           <div class="stat-number">12</div>
           <div class="stat-footer">3 quản lý, 9 nhân viên</div>
         </vc-card>
-      </el-col>
+      </vc-col>
 
       <!-- Card Nhân viên mới -->
-      <el-col :span="6">
+      <vc-col :span="6">
         <vc-card class="stat-card">
           <template #header>
             <div class="card-header">
@@ -58,7 +58,7 @@
           <div class="stat-number">5</div>
           <div class="stat-footer">Trong 30 ngày qua</div>
         </vc-card>
-      </el-col>
+      </vc-col>
     </vc-row>
 
     <!-- Bảng dữ liệu -->

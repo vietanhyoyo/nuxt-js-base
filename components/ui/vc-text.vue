@@ -1,29 +1,16 @@
 <template>
-  <el-text
-    :class="['vc-text', text_class]"
-    :type="type"
-    :size="size"
-    :truncated="truncated"
-  >
+  <el-text v-bind="$attrs" :class="['vc-text', textClass]">
     <slot />
   </el-text>
 </template>
 
 <script setup>
+defineOptions({
+  inheritAttrs: false, // Cho phép kế thừa tất cả props của ElText
+})
+
 defineProps({
-  type: {
-    type: String,
-    default: 'default',
-  },
-  size: {
-    type: String,
-    default: 'default',
-  },
-  truncated: {
-    type: Boolean,
-    default: false,
-  },
-  text_class: {
+  textClass: {
     type: String,
     default: '',
   },
