@@ -1,0 +1,11 @@
+.vc-text {
+  display: inline-block;
+  font-weight: 400;
+}
+
+.vc-text.truncated {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
