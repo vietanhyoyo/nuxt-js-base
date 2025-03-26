@@ -1,43 +1,29 @@
 <template>
-  <el-button
-    :class="['vc-btn', button_class]"
-    :type="type"
-    :size="size"
-    :loading="loading"
-    @click="onClick"
-  >
+  <el-button v-bind="$attrs" :class="['vc-btn', buttonClass]" @click="onClick">
     <slot name="icon" />
     <slot />
   </el-button>
 </template>
 
 <script setup>
+defineOptions({
+  inheritAttrs: false, 
+})
+
 defineProps({
-  type: {
+  buttonClass: {
     type: String,
-    default: "primary",
-  },
-  size: {
-    type: String,
-    default: "default",
-  },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  button_class: {
-    type: Boolean,
-    default: false,
+    default: '',
   },
 })
 
-const emit = defineEmits(["click"])
+const emit = defineEmits(['click'])
 
 const onClick = (event) => {
-  emit("click", event)
+  emit('click', event)
 }
 </script>
 
 <style lang="scss" scoped>
-@use "@/assets/scss/ui/vc-button.scss" as *;
+@use '@/assets/scss/ui/vc-button.scss' as *;
 </style>

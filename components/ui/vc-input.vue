@@ -1,46 +1,22 @@
-<!-- components/VcInput.vue -->
 <template>
   <el-input
     v-model="inputValue"
-    :placeholder="placeholder"
-    :type="type"
-    :prefix-icon="prefixIcon"
-    :size="size"
-    :clearable="clearable"
-    :show-password="showPassword"
+    v-bind="$attrs"
     :class="['vc-input', inputClass]"
   />
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
+defineOptions({
+  inheritAttrs: false, // Cho phép truyền tất cả props của ElInput mà không cần định nghĩa lại
+})
+
 const props = defineProps({
   modelValue: {
     type: [String, Number],
     default: '',
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  type: {
-    type: String,
-    default: 'text',
-  },
-  prefixIcon: {
-    type: [String, Object],
-    default: null,
-  },
-  size: {
-    type: String,
-    default: 'default',
-  },
-  clearable: {
-    type: Boolean,
-    default: false,
-  },
-  showPassword: {
-    type: Boolean,
-    default: false,
   },
   inputClass: {
     type: [String, Boolean],
