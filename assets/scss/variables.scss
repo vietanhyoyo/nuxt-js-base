@@ -1,0 +1,33 @@
+@use 'sass:map';
+@use 'sass:color'; // ✅ Import module color
+
+$colors: (
+  'primary': #00dc82,
+  'secondary': #409eff,
+  'danger': #f56c6c,
+  'success': #67c23a,
+  'warning': #e6a23c,
+  'info': #909399,
+  'dark': #050818,
+  'light': #ffffff,
+);
+
+// ✅ Xuất biến màu cho chế độ sáng
+:root {
+  @each $name, $color in $colors {
+    --color-#{$name}: #{$color};
+  }
+
+  --color-card: #ffffff;
+  --color-table: #ffffff00;
+}
+
+// ✅ Ghi đè biến màu cho chế độ tối (Dark Mode)
+html.dark {
+  @each $name, $color in $colors {
+    --color-#{$name}: #{$color};
+  }
+
+  --color-card: #21232f;
+  --color-table: #ffffff00;
+}

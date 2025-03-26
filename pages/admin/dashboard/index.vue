@@ -81,7 +81,7 @@ const tableData = [
 
 <style scoped>
 .dashboard-container {
-  padding: 20px;
+  padding: 10px;
 }
 .title {
   margin-bottom: 20px;
