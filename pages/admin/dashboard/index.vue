@@ -3,7 +3,7 @@
   <div class="dashboard-container">
     <h1 class="h1 title">Dashboard Quản Lý Nhân Sự</h1>
 
-    <vc-row :gutter="20">
+    <vc-row :gutter="28">
       <vc-col v-for="(stat, index) in stats" :key="index" :span="6">
         <StatCard v-bind="stat" />
       </vc-col>
@@ -81,9 +81,12 @@ const tableData = [
 
 <style scoped>
 .dashboard-container {
-  padding: 10px;
+  padding: 8px;
 }
 .title {
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+}
+.table-card {
+  margin-top: 28px;
 }
 </style>
