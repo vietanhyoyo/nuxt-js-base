@@ -79,7 +79,7 @@ const tableData = [
 ]
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .dashboard-container {
   padding: 8px;
 }

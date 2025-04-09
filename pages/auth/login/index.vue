@@ -97,7 +97,7 @@ const handleLogin = () => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .login-container {
   display: flex;
   flex-direction: column;

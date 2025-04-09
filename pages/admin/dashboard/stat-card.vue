@@ -24,7 +24,7 @@ defineProps({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .card-header {
   display: flex;
   justify-content: space-between;
